@@ -1,0 +1,10 @@
+.b-image-pokemon {
+  background-image: url("https://wallpapercave.com/wp/Px8NUSM.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.bg-search {
+  background-color: rgba(255, 255, 255, 0.5);
+}
