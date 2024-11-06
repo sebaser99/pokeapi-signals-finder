@@ -1,36 +1,8 @@
-<div class="min-h-screen p-4  justify-center items-center b-image-pokemon">
-  <div class="max-w-md mx-auto w-full rounded-lg shadow-lg p-6 bg-search">
-    <h1 class="text-3xl font-bold text-center text-yellow-950 mb-4">Encuentra tu Pokémon</h1>
-    <p class="text-fuchsia-800 text-center mb-5">Búscalo por nombre o ID</p>
+<div class="min-h-screen p-4 flex  justify-center items-center b-image-pokemon">
+  <div class=" mx-auto flex flex-col  rounded-lg shadow-lg p-6 bg-search">
+    <div *ngIf="pokemon() && !error()" class="text-center ml-5 lg:w-80 mb-5">
+      <h2 class="text-2xl font-bold capitalize mb-2 text-red-600 bg-yellow-200">{{ pokemon()?.name }}</h2>
 
-    <div class="mb-6 flex gap-3">
-      <input
-        type="text"
-        placeholder="Buscar Pokémon..."
-        class="w-full pl-5 p-3 rounded-lg bg-yellow-100 text-red-800 border border-gray-600 placeholder-gray-700 focus:outline-none focus:border-yellow-500"
-        #searchInput
-        (keydown.enter)="search(searchInput.value)"
-        [disabled]="loading()"
-      />
-      <button
-        (click)="search(searchInput.value)"
-        [disabled]="loading()"
-        class="px-5 py-2 bg-yellow-500 text-gray-800 font-semibold rounded-lg hover:bg-yellow-600 transition-all disabled:bg-gray-500 disabled:cursor-not-allowed"
-      >
-        Buscar
-      </button>
-    </div>
-
-    <!-- Mensaje de Error -->
-    <p class="text-red-500 text-center mb-4" *ngIf="error()">
-      {{ error() }}
-    </p>
-
-    <!-- Mostrar Pokémon -->
-    <div *ngIf="pokemon() && !error()" class="text-center">
-      <h2 class="text-2xl font-bold capitalize mb-2 text-white">{{ pokemon()?.name }}</h2>
-
-      <!-- Imagen de Pokémon -->
       <div class="relative w-40 h-40 mx-auto rounded-full p-2 shadow-lg mb-4 bg-zinc-400">
         <img
           [src]="sprite()"
@@ -39,7 +11,7 @@
         />
       </div>
 
-      <div class="flex gap-3 justify-center mt-4">
+      <div class="flex gap-3 justify-center mt-4 mb-5">
         <span
           *ngFor="let type of pokemon()?.types || []"
           class="px-4 py-1 rounded-full text-white text-sm font-medium shadow-lg transition-transform hover:scale-105"
@@ -49,12 +21,41 @@
             'bg-green-600': type.type.name === 'grass',
             'bg-yellow-500 ': type.type.name === 'electric',
             'bg-purple-600': type.type.name === 'poison',
-            'bg-gray-500': type.type.name === 'normal'
+            'bg-gray-500': type.type.name === 'normal',
+            'bg-yellow-900': type.type.name === 'ghost',
+            'bg-red-500': type.type.name === 'fighting',
+            'bg-teal-500': type.type.name === 'flying'
           }"
         >
           {{ type.type.name }}
         </span>
       </div>
+    </div>
+    <div class="mt-10">
+      <h1 class="text-3xl font-bold text-center text-fuchsia-800 mb-4">Encuentra tu Pokémon</h1>
+      <p class=" text-center mb-5 font-bold">Búscalo por nombre o ID</p>
+
+      <div class="mb-6 flex gap-3">
+        <input
+          type="text"
+          placeholder="Buscar Pokémon..."
+          class="w-full pl-5 p-3 rounded-lg bg-yellow-100 text-red-800 border border-gray-600 placeholder-gray-700 focus:outline-none focus:border-yellow-500"
+          #searchInput
+          (keydown.enter)="search(searchInput.value)"
+          [disabled]="loading()"
+        />
+        <button
+          (click)="search(searchInput.value)"
+          [disabled]="loading()"
+          class="px-5 py-2 bg-yellow-500 text-gray-800 font-semibold rounded-lg hover:bg-yellow-600 transition-all disabled:bg-gray-500 disabled:cursor-not-allowed"
+        >
+          Buscar
+        </button>
+      </div>
+
+      <p class="text-red-500 text-center mb-4" *ngIf="error()">
+        {{ error() }}
+      </p>
     </div>
   </div>
 </div>
